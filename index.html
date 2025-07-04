@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator BMI Interaktif</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f6d365, #fda085);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 80%;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff7e5f;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #ff6a4d;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #444;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.5s ease;
+    }
+
+    .result.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Kalkulator BMI</h1>
+    <input type="number" id="berat" placeholder="Masukkan berat (kg)">
+    <input type="number" id="tinggi" placeholder="Masukkan tinggi (cm)">
+    <button onclick="hitungBMI()">Hitung BMI</button>
+    <div id="hasil" class="result"></div>
+  </div>
+
+  <script>
+    function hitungBMI() {
+      const berat = parseFloat(document.getElementById("berat").value);
+      const tinggi = parseFloat(document.getElementById("tinggi").value) / 100;
+
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(berat) || isNaN(tinggi) || berat <= 0 || tinggi <= 0) {
+        hasil.innerText = "Masukkan berat dan tinggi yang valid!";
+        hasil.classList.add("show");
+        return;
+      }
+
+      const bmi = berat / (tinggi * tinggi);
+      let status = "";
+
+      if (bmi < 18.5) {
+        status = "Kurus 😕";
+      } else if (bmi < 25) {
+        status = "Normal (Ideal) 😊";
+      } else if (bmi < 30) {
+        status = "Gemuk 😐";
+      } else {
+        status = "Obesitas 😟";
+      }
+
+      hasil.innerHTML = `BMI Anda: <strong>${bmi.toFixed(2)}</strong> <br> Status: <strong>${status}</strong>`;
+      hasil.classList.add("show");
+    }
+  </script>
+
+</body>
+</html>
